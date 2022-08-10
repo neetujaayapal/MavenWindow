@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -61,7 +61,7 @@ public class WindowHandle {
 					driver.switchTo().window(windowHandle);
                   // printing child 1 
 					if (count == 2) {
-						// prints the window handle of three child
+						
 						System.out.println("Window Handle 1 =" + driver.getWindowHandle());
 						// printing child 2
 					} else if (count == 3) {
