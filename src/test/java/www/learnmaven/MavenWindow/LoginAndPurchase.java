@@ -40,7 +40,7 @@ public class LoginAndPurchase {
 
 		driver.manage().timeouts().setScriptTimeout(60, TimeUnit.SECONDS);
 
-		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+		//driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 
 	}
 
@@ -118,6 +118,8 @@ public class LoginAndPurchase {
 		driver.findElement(By.cssSelector("header div.container div.row div.col-sm-3 button.btn.btn-inverse")).click();
 
 		driver.findElement(By.cssSelector("ul.list-inline>li:nth-of-type(5) span")).click();
+		
+		sleep();
 
 		driver.findElement(By.cssSelector("#input-payment-firstname")).sendKeys("Neetu");
 
@@ -134,18 +136,25 @@ public class LoginAndPurchase {
 		sc.selectByVisibleText("Canada");
 
 		Select sc2 = new Select(driver.findElement(By.cssSelector("#input-payment-zone")));
+		
+		sleep();
 
 		sc2.selectByVisibleText("Ontario");
 // billing detail
 		driver.findElement(By.cssSelector("div.buttons.clearfix input")).click();
+		
+		sleep();
 
 // delivery detail
 		driver.findElement(
 				By.cssSelector("div.panel-group>div:nth-of-type(3)>div:nth-of-type(2) form>div:nth-of-type(5) input")).click();
 
+		sleep();
 // delivery method
 		driver.findElement(By.cssSelector("div#collapse-shipping-method>div>div:nth-of-type(2) input")).click();
 
+		sleep();
+		
 // payment method
 		driver.findElement(By.cssSelector(
 				"div.panel-group>div:nth-of-type(5)>div:nth-of-type(2)>div>div.buttons div.pull-right input:nth-of-type(1)")).click();
@@ -153,6 +162,8 @@ public class LoginAndPurchase {
 		driver.findElement(By.cssSelector(
 				"div.panel-group>div:nth-of-type(5)>div:nth-of-type(2)>div>div.buttons div.pull-right input:nth-of-type(2)")).click();
 
+		sleep();
+		
 // confirm order		
 		driver.findElement(By.cssSelector("div#collapse-checkout-confirm div.panel-body>div:nth-of-type(2) input")).click();
 
@@ -184,6 +195,15 @@ public class LoginAndPurchase {
 		driver.close();
 	}
 
+	public void sleep() {
+		try {
+			Thread.sleep(2000); // milliseconds
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 
 
 }
