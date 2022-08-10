@@ -36,89 +36,44 @@ public class WindowHandle {
 
 	@Test
 	public void windowHandleTest() {
-// parent
+		// parent
 		String parentWindowHandle = driver.getWindowHandle();
 
 		System.out.println("Parent Handle =" + parentWindowHandle);
-// child
-		WebElement newTabElement = driver.findElement(By.cssSelector("#tabButton"));
-
-		newTabElement.click();
-
+		// new tab child
+		driver.findElement(By.cssSelector("#tabButton")).click();
+		// window child
+		driver.findElement(By.cssSelector("#windowButton")).click();
+		
 		sleep();
 
 		Set<String> handles = driver.getWindowHandles();
 
-		//System.out.println("handles = " + handles);
+		// System.out.println("handles = " + handles);
 
-		for (String windowHandle : handles) {
+		for (int count = 0; count <= 3; count++)
 
-			if (!windowHandle.equals(parentWindowHandle)) {
+			for (String windowHandle : handles) {
 
-				driver.switchTo().window(windowHandle);
+				count++;
+				if (!windowHandle.equals(parentWindowHandle)) {
 
-				System.out.println("Window Handle of Child 1 =" + driver.getWindowHandle());
-				
-				sleep();
+					driver.switchTo().window(windowHandle);
+                  // printing child 1 
+					if (count == 2) {
+						// prints the window handle of three child
+						System.out.println("Window Handle 1 =" + driver.getWindowHandle());
+						// printing child 2
+					} else if (count == 3) {
 
-				driver.close();
+						System.out.println("Window Handle 2 =" + driver.getWindowHandle());
 
-				sleep();
+						driver.close();
+
+					}
+				}
 
 			}
-
-		}
-
-		driver.switchTo().window(parentWindowHandle);
-
-		WebElement newWindowElement = driver.findElement(By.cssSelector("#windowButton"));
-
-		newWindowElement.click();
-		
-		Set<String> handles1 = driver.getWindowHandles();
-
-		for (String windowHandle : handles1) {
-
-			if (!windowHandle.equals(parentWindowHandle)) {
-
-				driver.switchTo().window(windowHandle);
-
-				System.out.println("Window Handle of child 2 =" + driver.getWindowHandle());
-
-				sleep();
-
-				driver.close();
-
-				sleep();
-			}
-
-		}
-
-		driver.switchTo().window(parentWindowHandle);
-		
-		WebElement newWindowMsgElement = driver.findElement(By.cssSelector("#messageWindowButton"));
-
-		newWindowMsgElement.click();
-		
-		Set<String> handles2 = driver.getWindowHandles();
-
-		for (String windowHandle : handles2) {
-
-			if (!windowHandle.equals(parentWindowHandle)) {
-
-				driver.switchTo().window(windowHandle);
-
-				System.out.println("Window Handle of child 3 =" + driver.getWindowHandle());
-
-				sleep();
-
-				driver.close();
-
-				sleep();
-			}
-
-		}
-		
 		driver.switchTo().window(parentWindowHandle);
 
 	}
@@ -137,6 +92,6 @@ public class WindowHandle {
 			e.printStackTrace();
 		}
 
-	}
 
+}
 }
