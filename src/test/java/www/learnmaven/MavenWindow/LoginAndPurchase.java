@@ -1,6 +1,7 @@
 package www.learnmaven.MavenWindow;
 
 import java.util.Random;
+
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -15,7 +16,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class LoginAndPurchase {
-	
+
+	String email;
+
 	WebDriver driver;
 
 	Actions ac;
@@ -37,7 +40,7 @@ public class LoginAndPurchase {
 
 		driver.manage().timeouts().setScriptTimeout(60, TimeUnit.SECONDS);
 
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 
 	}
 
@@ -59,8 +62,9 @@ public class LoginAndPurchase {
 		}
 		String string2 = string1.toString();
 
-		driver.findElement(By.cssSelector("fieldset#account>div:nth-of-type(4) input"))
-				.sendKeys(string2 + "@gmail.com");
+		email = string2 + "@gmail.com";
+
+		driver.findElement(By.cssSelector("fieldset#account>div:nth-of-type(4) input")).sendKeys(email);
 
 		driver.findElement(By.cssSelector("fieldset#account>div:nth-of-type(5) input")).sendKeys("343842324");
 
@@ -78,10 +82,8 @@ public class LoginAndPurchase {
 
 		System.out.println(accountAlertText);
 
-		sleep();
-		// Assert.assertEquals(accountAlertText, "Your Account Has Been Created!", "text
-		// is not matching");
-		// sleep();
+		Assert.assertEquals(accountAlertText, "Your Account Has Been Created!", "text is not matching");
+
 	}
 
 	@Test(priority = 2)
@@ -91,19 +93,16 @@ public class LoginAndPurchase {
 
 		driver.findElement(By.cssSelector(
 				"div#account-login div#content>div>div:nth-of-type(2) div.well form div:nth-of-type(1) input"))
-				.sendKeys("neja11@gmail.com");
+				.sendKeys(email);
 
 		driver.findElement(By.cssSelector(
 				"div#account-login div#content>div>div:nth-of-type(2) div.well form div:nth-of-type(2) input"))
-				.sendKeys("1234");
+				.sendKeys("Naveenlab");
 
 		WebElement loginBtnField = driver.findElement(
 				By.cssSelector("div#account-login div#content>div>div:nth-of-type(2) div.well form>input"));
 
 		ac.click(loginBtnField).perform();
-		// loginBtnField.click();
-
-		sleep();
 
 		driver.navigate().to("https://naveenautomationlabs.com/opencart/index.php?route=common/home");
 
@@ -111,8 +110,7 @@ public class LoginAndPurchase {
 
 		driver.navigate().to("https://naveenautomationlabs.com/opencart/index.php?route=product/category&path=24");
 
-		WebElement addToCartElement = driver
-				.findElement(By.cssSelector("div#content>div:nth-of-type(2)>div:nth-of-type(2) div.button-group span"));
+		WebElement addToCartElement = driver.findElement(By.cssSelector("div#content>div:nth-of-type(2)>div:nth-of-type(2) div.button-group span"));
 
 		ac.moveToElement(addToCartElement).click().perform();
 		// addToCartElement.click();
@@ -121,17 +119,7 @@ public class LoginAndPurchase {
 
 		driver.findElement(By.cssSelector("ul.list-inline>li:nth-of-type(5) span")).click();
 
-		sleep();
-
-		driver.findElement(By.cssSelector(
-				"div.panel-group>div:nth-of-type(2)>div:nth-of-type(2) div:nth-of-type(1) form.form-horizontal>div:nth-of-type(3) input"))
-				.click();
-
-		sleep();
-
 		driver.findElement(By.cssSelector("#input-payment-firstname")).sendKeys("Neetu");
-
-		sleep();
 
 		driver.findElement(By.cssSelector("#input-payment-lastname")).sendKeys("Jayapalan");
 
@@ -145,42 +133,30 @@ public class LoginAndPurchase {
 
 		sc.selectByVisibleText("Canada");
 
-		sleep();
-
 		Select sc2 = new Select(driver.findElement(By.cssSelector("#input-payment-zone")));
 
 		sc2.selectByVisibleText("Ontario");
-
+// billing detail
 		driver.findElement(By.cssSelector("div.buttons.clearfix input")).click();
 
-		sleep();
-
+// delivery detail
 		driver.findElement(
-				By.cssSelector("div.panel-group>div:nth-of-type(3)>div:nth-of-type(2) form>div:nth-of-type(5) input"))
-				.click();
+				By.cssSelector("div.panel-group>div:nth-of-type(3)>div:nth-of-type(2) form>div:nth-of-type(5) input")).click();
 
-		sleep();
-
+// delivery method
 		driver.findElement(By.cssSelector("div#collapse-shipping-method>div>div:nth-of-type(2) input")).click();
 
-		sleep();
+// payment method
+		driver.findElement(By.cssSelector(
+				"div.panel-group>div:nth-of-type(5)>div:nth-of-type(2)>div>div.buttons div.pull-right input:nth-of-type(1)")).click();
 
 		driver.findElement(By.cssSelector(
-				"div.panel-group>div:nth-of-type(5)>div:nth-of-type(2)>div>div.buttons div.pull-right input:nth-of-type(1)"))
-				.click();
+				"div.panel-group>div:nth-of-type(5)>div:nth-of-type(2)>div>div.buttons div.pull-right input:nth-of-type(2)")).click();
 
-		sleep();
+// confirm order		
+		driver.findElement(By.cssSelector("div#collapse-checkout-confirm div.panel-body>div:nth-of-type(2) input")).click();
 
-		driver.findElement(By.cssSelector(
-				"div.panel-group>div:nth-of-type(5)>div:nth-of-type(2)>div>div.buttons div.pull-right input:nth-of-type(2)"))
-				.click();
-
-		sleep();
-
-		driver.findElement(By.cssSelector("div#collapse-checkout-confirm div.panel-body>div:nth-of-type(2) input"))
-				.click();
-
-		sleep();
+		driver.navigate().to("https://naveenautomationlabs.com/opencart/index.php?route=checkout/success");
 
 		WebElement orderPlacedMessageElement = driver.findElement(By.cssSelector("div#content h1"));
 
@@ -208,15 +184,6 @@ public class LoginAndPurchase {
 		driver.close();
 	}
 
-	public void sleep() {
-		try {
-			Thread.sleep(5000); // milliseconds
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
 
 
 }
