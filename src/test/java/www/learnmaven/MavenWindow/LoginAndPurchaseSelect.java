@@ -140,14 +140,11 @@ public class LoginAndPurchaseSelect { // test time = 27.328 sec , used 1 sleep()
 
 // delivery detail
 		driver.findElement(By.cssSelector("input#button-shipping-address")).click();
-		
-		//driver.findElement(By.xpath("//input[@id ='button-payment-address']"));
+	
 
 // delivery method
 		driver.findElement(By.cssSelector("input#button-shipping-method")).click();
 		
-		//driver.findElement(By.xpath("//input[@id ='button-shipping-method']"));
-
 // payment method
 		driver.findElement(By.cssSelector(
 				"div.panel-group>div:nth-of-type(5)>div:nth-of-type(2)>div>div.buttons div.pull-right input:nth-of-type(1)"))

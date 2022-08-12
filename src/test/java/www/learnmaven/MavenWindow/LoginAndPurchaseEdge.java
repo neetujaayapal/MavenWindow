@@ -140,7 +140,6 @@ public class LoginAndPurchaseEdge { // test time = 29.504 sec ,used one sleep()
 // delivery detail
 		driver.findElement(By.cssSelector("input#button-shipping-address")).click();
 		
-		//driver.findElement(By.xpath("//input[@id ='button-payment-address']"));
 
 // delivery method
 		driver.findElement(By.cssSelector("input#button-shipping-method")).click();
