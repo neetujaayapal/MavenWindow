@@ -37,7 +37,7 @@ public class LoginAndPurchaseSelect { // test time = 27.328 sec , used 1 sleep()
 
 		driver.manage().timeouts().setScriptTimeout(60, TimeUnit.SECONDS);
 
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
 		driver.manage().window().maximize();
 
@@ -52,8 +52,8 @@ public class LoginAndPurchaseSelect { // test time = 27.328 sec , used 1 sleep()
 
 		Random rnd = new Random();
 
-		int ranNumber = rnd.nextInt(1000);
-		ranEmail = "user" + ranNumber + "@gmail.com";
+		int ranNumber = rnd.nextInt(5000);
+		ranEmail = "names" + ranNumber + "@gmail.com";
 
 		driver.findElement(By.cssSelector("fieldset#account>div:nth-of-type(4) input")).sendKeys(ranEmail);
 
@@ -103,21 +103,19 @@ public class LoginAndPurchaseSelect { // test time = 27.328 sec , used 1 sleep()
 		loginTest();
 
 		driver.findElement(By.cssSelector("ul.nav.navbar-nav>li:nth-of-type(6) a")).click();
+		
+		driver.findElement(By.cssSelector("ul.nav.navbar-nav>li:nth-of-type(6) a")).click();
+
 
 		WebElement addToCartElement = driver
 				.findElement(By.cssSelector("div#content>div:nth-of-type(2)>div:nth-of-type(2) div.button-group span"));
 
 		addToCartElement.click();
 
-		WebElement cartBtn = driver.findElement(By.cssSelector("#cart-total"));
-// mouseHover
-		ac.moveToElement(cartBtn).click().perform();
-
-		driver.findElement(By.cssSelector("p.text-right>a:nth-of-type(2) strong"));
-
 		driver.findElement(By.cssSelector("header div.container div.row div.col-sm-3 button.btn.btn-inverse")).click();
 
 		driver.findElement(By.cssSelector("ul.list-inline>li:nth-of-type(5) span")).click();
+
 
 		driver.findElement(By.cssSelector("#input-payment-firstname")).sendKeys("Neetu");
 
@@ -142,9 +140,13 @@ public class LoginAndPurchaseSelect { // test time = 27.328 sec , used 1 sleep()
 
 // delivery detail
 		driver.findElement(By.cssSelector("input#button-shipping-address")).click();
+		
+		//driver.findElement(By.xpath("//input[@id ='button-payment-address']"));
 
 // delivery method
 		driver.findElement(By.cssSelector("input#button-shipping-method")).click();
+		
+		//driver.findElement(By.xpath("//input[@id ='button-shipping-method']"));
 
 // payment method
 		driver.findElement(By.cssSelector(

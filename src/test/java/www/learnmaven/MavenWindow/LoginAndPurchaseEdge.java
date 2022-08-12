@@ -38,7 +38,7 @@ public class LoginAndPurchaseEdge { // test time = 29.504 sec ,used one sleep()
 
 		driver.manage().timeouts().setScriptTimeout(60, TimeUnit.SECONDS);
 
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 
 		driver.manage().window().maximize();
 
@@ -54,7 +54,7 @@ public class LoginAndPurchaseEdge { // test time = 29.504 sec ,used one sleep()
 		Random rnd = new Random();
 
 		int ranNumber = rnd.nextInt(1000);
-		ranEmail = "user" + ranNumber + "@gmail.com";
+		ranEmail = "name" + ranNumber + "@gmail.com";
 
 		driver.findElement(By.cssSelector("fieldset#account>div:nth-of-type(4) input")).sendKeys(ranEmail);
 
@@ -67,7 +67,7 @@ public class LoginAndPurchaseEdge { // test time = 29.504 sec ,used one sleep()
 				.sendKeys("Naveenlab");
 
 		driver.findElement(By.cssSelector("div.buttons input:nth-of-type(1)")).click();
-
+// submit
 		driver.findElement(By.cssSelector("div.buttons input:nth-of-type(2)")).submit();
 
 		String accountAlertText = driver.findElement(By.cssSelector("div#content h1")).getText();
@@ -93,7 +93,7 @@ public class LoginAndPurchaseEdge { // test time = 29.504 sec ,used one sleep()
 
 		WebElement loginBtnField = driver.findElement(
 				By.cssSelector("div#account-login div#content>div>div:nth-of-type(2) div.well form>input"));
-
+// action click
 		ac.click(loginBtnField).perform();
 
 	}
@@ -104,15 +104,17 @@ public class LoginAndPurchaseEdge { // test time = 29.504 sec ,used one sleep()
 		loginTest();
 
 		driver.findElement(By.cssSelector("ul.nav.navbar-nav>li:nth-of-type(6) a")).click();
-
+		
+		
 		WebElement addToCartElement = driver
 				.findElement(By.cssSelector("div#content>div:nth-of-type(2)>div:nth-of-type(2) div.button-group span"));
 
-		ac.moveToElement(addToCartElement).click().perform();
+		addToCartElement.click();
 
 		driver.findElement(By.cssSelector("header div.container div.row div.col-sm-3 button.btn.btn-inverse")).click();
 
 		driver.findElement(By.cssSelector("ul.list-inline>li:nth-of-type(5) span")).click();
+
 
 		driver.findElement(By.cssSelector("#input-payment-firstname")).sendKeys("Neetu");
 
@@ -137,6 +139,8 @@ public class LoginAndPurchaseEdge { // test time = 29.504 sec ,used one sleep()
 
 // delivery detail
 		driver.findElement(By.cssSelector("input#button-shipping-address")).click();
+		
+		//driver.findElement(By.xpath("//input[@id ='button-payment-address']"));
 
 // delivery method
 		driver.findElement(By.cssSelector("input#button-shipping-method")).click();
