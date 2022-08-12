@@ -6,7 +6,8 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
@@ -14,7 +15,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class LoginAndPurchaseSelect { // test time = 27.328 sec , used 1 sleep();
+public class LoginAndPurchaseEdge { // test time = 29.504 sec ,used one sleep()
 
 	String ranEmail;
 
@@ -25,9 +26,9 @@ public class LoginAndPurchaseSelect { // test time = 27.328 sec , used 1 sleep()
 	@BeforeMethod
 	public void setup() {
 
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\neetu\\Drivers\\Chrome Driver\\chromedriver.exe");
+		System.setProperty("webdriver.edge.driver", "C:\\Users\\neetu\\Drivers\\Edge Driver\\msedgedriver.exe");
 
-		driver = new ChromeDriver();
+		driver = new EdgeDriver();
 
 		ac = new Actions(driver);
 
@@ -66,7 +67,7 @@ public class LoginAndPurchaseSelect { // test time = 27.328 sec , used 1 sleep()
 				.sendKeys("Naveenlab");
 
 		driver.findElement(By.cssSelector("div.buttons input:nth-of-type(1)")).click();
-// submit
+
 		driver.findElement(By.cssSelector("div.buttons input:nth-of-type(2)")).submit();
 
 		String accountAlertText = driver.findElement(By.cssSelector("div#content h1")).getText();
@@ -92,7 +93,7 @@ public class LoginAndPurchaseSelect { // test time = 27.328 sec , used 1 sleep()
 
 		WebElement loginBtnField = driver.findElement(
 				By.cssSelector("div#account-login div#content>div>div:nth-of-type(2) div.well form>input"));
-// action click
+
 		ac.click(loginBtnField).perform();
 
 	}
@@ -107,13 +108,7 @@ public class LoginAndPurchaseSelect { // test time = 27.328 sec , used 1 sleep()
 		WebElement addToCartElement = driver
 				.findElement(By.cssSelector("div#content>div:nth-of-type(2)>div:nth-of-type(2) div.button-group span"));
 
-		addToCartElement.click();
-
-		WebElement cartBtn = driver.findElement(By.cssSelector("#cart-total"));
-// mouseHover
-		ac.moveToElement(cartBtn).click().perform();
-
-		driver.findElement(By.cssSelector("p.text-right>a:nth-of-type(2) strong"));
+		ac.moveToElement(addToCartElement).click().perform();
 
 		driver.findElement(By.cssSelector("header div.container div.row div.col-sm-3 button.btn.btn-inverse")).click();
 
