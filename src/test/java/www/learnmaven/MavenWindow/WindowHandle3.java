@@ -21,15 +21,15 @@ public class WindowHandle3 {
 
 		driver = new ChromeDriver();
 
-		driver.get("https://demoqa.com/browser-windows");
+		driver.get("https://www.instagram.com/");
 
 		driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
-
-		driver.manage().window().maximize();
 
 		driver.manage().timeouts().setScriptTimeout(60, TimeUnit.SECONDS);
 
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+		driver.manage().window().maximize();
 
 	}
 
@@ -40,22 +40,18 @@ public class WindowHandle3 {
 
 		System.out.println("Parent Handle =" + parentWindowHandle);
 
-		System.out.println("Parent Title =" + driver.getTitle());
-
-		System.out.println("Parent URL =" + driver.getCurrentUrl());
 		// new tab child
-		driver.findElement(By.cssSelector("#tabButton")).click();
+		driver.findElement(By.cssSelector("div.iNy2T a:nth-of-type(1) img")).click();
 
 		ArrayList<String> windowHandles = new ArrayList<String>(driver.getWindowHandles());
 
-		System.out.println(windowHandles);
+		System.out.println("First array  =" + windowHandles);
 
-		// window child
-		driver.findElement(By.cssSelector("#windowButton")).click();
+		driver.findElement(By.cssSelector("div.iNy2T a:nth-of-type(2) img")).click();
 
 		ArrayList<String> windowHandles2 = new ArrayList<String>(driver.getWindowHandles());
 
-		System.out.println(windowHandles2);
+		System.out.println("Second array =" + windowHandles2);
 
 		windowHandles2.removeAll(windowHandles);
 
