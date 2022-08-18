@@ -38,7 +38,7 @@ public class LoginAndPurchaseExplicit { // test time = 29.504 sec ,used one slee
 
 		driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
 
-		driver.manage().timeouts().setScriptTimeout(60, TimeUnit.SECONDS);
+	    driver.manage().timeouts().setScriptTimeout(60, TimeUnit.SECONDS);
 
 		driver.manage().window().maximize();
 
@@ -128,17 +128,11 @@ public class LoginAndPurchaseExplicit { // test time = 29.504 sec ,used one slee
 		 WebElement country =
 		 driver.findElement(By.cssSelector("#input-payment-country"));
 		
-	    select1(country).selectByVisibleText("Canada");
+	    select(country).selectByVisibleText("Canada");
 
-		//select(driver,By.cssSelector("#input-payment-country"), 10, "Canada");
 
-		// select(country).selectByVisibleText("Canada");
-	    
-	    
-
-		select(driver,By.cssSelector("#input-payment-zone"), 20, "Ontario");
-
-		// select(province).selectByVisibleText("Ontario");
+		selectWithWait(driver,By.cssSelector("#input-payment-zone"), 50, "Ontario",driver.findElement(By.cssSelector("#input-payment-zone")));
+		
 
 // billing detail
 
@@ -153,23 +147,22 @@ public class LoginAndPurchaseExplicit { // test time = 29.504 sec ,used one slee
 		
 
 // payment method
-		driver.findElement(By.cssSelector(
-				"div.panel-group>div:nth-of-type(5)>div:nth-of-type(2)>div>div.buttons div.pull-right input:nth-of-type(1)"))
-				.click();
-
+		
+		explicitWait(driver, 10, By.cssSelector("div.panel-group>div:nth-of-type(5)>div:nth-of-type(2)>div>div.buttons div.pull-right input:nth-of-type(1)")).click();
+	
 		driver.findElement(By.cssSelector(
 				"div.panel-group>div:nth-of-type(5)>div:nth-of-type(2)>div>div.buttons div.pull-right input:nth-of-type(2)"))
 				.click();
 
-// confirm order		
-		driver.findElement(By.cssSelector("div#collapse-checkout-confirm div.panel-body>div:nth-of-type(2) input"))
-				.click();
+// confirm order	
+		
+		explicitWait(driver, 10, By.cssSelector("div#collapse-checkout-confirm div.panel-body>div:nth-of-type(2) input")).click();
+		
+	    WebDriverWait w = new WebDriverWait(driver, 20);
+	    
+	    w.until(ExpectedConditions.textToBe(By.cssSelector("div#content h1"), "Your order has been placed!"));
 
-		explicitWait(driver, 10, By.cssSelector("div#content h1"));
-
-		WebElement orderPlacedMessageElement = driver.findElement(By.cssSelector("div#content h1"));
-
-		String messagePlacedText = orderPlacedMessageElement.getText();
+		String messagePlacedText = driver.findElement(By.cssSelector("div#content h1")).getText();
 
 		Assert.assertEquals(messagePlacedText, "Your order has been placed!", "Message not matching");
 
@@ -193,11 +186,11 @@ public class LoginAndPurchaseExplicit { // test time = 29.504 sec ,used one slee
 		driver.close();
 	}
 
-	public void select(WebDriver driver ,By locator, int time, String name) {
+	public void selectWithWait(WebDriver driver ,By locator, int time, String name,WebElement element) {
 
 		WebDriverWait w = new WebDriverWait(driver, time);
 
-		w.until(ExpectedConditions.elementToBeClickable(locator));
+		w.until(ExpectedConditions.textToBePresentInElement(element, name));
 
 		Select sc = new Select(driver.findElement(locator));
 
@@ -207,7 +200,7 @@ public class LoginAndPurchaseExplicit { // test time = 29.504 sec ,used one slee
 
 		catch (Exception e) {
 
-			System.out.println("Exception");
+			sc.selectByValue(name);;
 		}
 
 	}
@@ -220,7 +213,7 @@ public class LoginAndPurchaseExplicit { // test time = 29.504 sec ,used one slee
 
 	}
 	
-	public Select select1(WebElement element) {
+	public Select select(WebElement element) {
 		
 				Select sc = new Select(element);
 		
